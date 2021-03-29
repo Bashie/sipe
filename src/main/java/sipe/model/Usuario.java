@@ -1,9 +1,11 @@
-package sipe.controller.model;
+package sipe.model;
 
-public class Usuario extends Persona {
+public class Usuario {
 	
 	private String login;
 	private String encryptedPassword;
+	private Boolean admin = false;
+	private Persona persona;
 	
 	public String getLogin() {
 		return login;
@@ -17,7 +19,18 @@ public class Usuario extends Persona {
 	public void setEncryptedPassword(String encryptedPassword) {
 		this.encryptedPassword = encryptedPassword;
 	}
-	
+	public Boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 	@Override
 	public String toString() {
 		return "Usuario [login=" + login + ", encryptedPassword=" + encryptedPassword + ", parent="	+ super.toString() + "]";

@@ -1,4 +1,4 @@
-package sipe.controller.model;
+package sipe.model;
 
 public class Admin extends Usuario {
 
