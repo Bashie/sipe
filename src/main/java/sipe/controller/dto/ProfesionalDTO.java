@@ -3,7 +3,7 @@ package sipe.controller.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProfesionalDTO {
-	private String practicaProfesional;
+	private String areaDesarrollo;
 	private String nombre;
 	private String apellido;
 	private Integer dni;
@@ -28,16 +28,16 @@ public class ProfesionalDTO {
 	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
-	public String getPracticaProfesional() {
-		return practicaProfesional;
+	public String getAreaDesarrollo() {
+		return areaDesarrollo;
 	}
 
-	public void setPracticaProfesional(String practicaProfesional) {
-		this.practicaProfesional = practicaProfesional;
+	public void setAreaDesarrollo(String areaDesarrollo) {
+		this.areaDesarrollo = areaDesarrollo;
 	}
 	@Override
 	public String toString() {
-		return "ProfesionalDTO [practicaProfesional=" + practicaProfesional + ", nombre=" + nombre + ", apellido="
+		return "ProfesionalDTO [areaDesarrollo=" + areaDesarrollo + ", nombre=" + nombre + ", apellido="
 				+ apellido + ", dni=" + dni + "]";
 	}
 

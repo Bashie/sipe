@@ -1,17 +1,62 @@
 package sipe.model;
 
-public class Usuario {
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import sipe.controller.dto.UsuarioDTO;
+
+@Entity
+@Table(name = "Usuario")
+@PrimaryKeyJoinColumn(name = "dni")
+public class Usuario implements Guardable, Serializable {
+	private static final long serialVersionUID = 7993715622903491479L;
 	
-	private String login;
-	private String encryptedPassword;
-	private Boolean admin = false;
-	private Persona persona;
-	
-	public String getLogin() {
-		return login;
+	public enum TipoUsuario {
+		  TUTOR(0),
+		  PROFESIONAL(1);
+		private final Integer id;
+		private TipoUsuario(Integer id) {
+			this.id = id;
+	    }
+		public Integer getId() {
+	        return id;
+	    }
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	@Id
+	private Integer dni;
+	private String encryptedPassword;
+	private TipoUsuario type;
+	@MapsId
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumns(value = {
+		@JoinColumn(name = "persona", referencedColumnName = "dni")
+	})
+	private Persona persona;
+
+	public UsuarioDTO toDTO() {
+		UsuarioDTO dto = new UsuarioDTO();
+		dto.setDni(getDni());
+		dto.setApellido(getPersona().getApellido());
+		dto.setNombre(getPersona().getNombre());
+		dto.setEmail(getPersona().getEmail());
+		return dto;
+	}
+	
+	
+	public Integer getDni() {
+		return dni;
+	}
+	public void setDni(Integer dni) {
+		this.dni = dni;
 	}
 	public String getEncryptedPassword() {
 		return encryptedPassword;
@@ -19,11 +64,11 @@ public class Usuario {
 	public void setEncryptedPassword(String encryptedPassword) {
 		this.encryptedPassword = encryptedPassword;
 	}
-	public Boolean isAdmin() {
-		return admin;
+	public TipoUsuario getType() {
+		return type;
 	}
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
+	public void setType(TipoUsuario type) {
+		this.type = type;
 	}
 	public Persona getPersona() {
 		return persona;
@@ -33,6 +78,10 @@ public class Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Usuario [login=" + login + ", encryptedPassword=" + encryptedPassword + ", parent="	+ super.toString() + "]";
+		return "Usuario [login=" + persona.getDni() + ", encryptedPassword=" + encryptedPassword + ", parent="	+ super.toString() + "]";
+	}
+	@Override
+	public Integer getId() {
+		return persona.getDni();
 	}
 }

@@ -14,6 +14,7 @@ public class Persona implements Guardable {
 	private String apellido;
 	@Id
 	private Integer dni;
+	private String email;
 	
 	public String getNombre() {
 		return nombre;
@@ -34,6 +35,12 @@ public class Persona implements Guardable {
 		this.dni = dni;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	@Override
 	public String toString() {
 		return "Persona [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + "]";

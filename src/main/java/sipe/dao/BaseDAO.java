@@ -27,14 +27,16 @@ public abstract class BaseDAO<T extends Guardable> {
     
 	public void persist(T entity) {
 		entityManager.persist(entity);
+		entityManager.flush();
 	}
 	
-	public void save(T entity) {
-		if(Objects.isNull(this.findById(entity.getId()))) {
+	public T save(T entity) {
+		if(Objects.isNull(entity.getId()) || Objects.isNull(this.findById(entity.getId()))) {
 			this.persist(entity);
 		} else {
 			this.update(entity);
 		}
+		return entity;
 	}
 	
 	public void update(T entity) {

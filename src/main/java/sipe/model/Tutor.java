@@ -20,13 +20,13 @@ import javax.persistence.Table;
 public class Tutor extends Persona {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Persona hijo;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "TUTORPRACTICA",
-	        inverseJoinColumns = @JoinColumn(
-	                name = "PRACTICA_ID",
-	                referencedColumnName = "ID"
-	        )
-	)
+	@OneToMany(cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        })
 	private List<PracticaProfesional> practicas;
 	
 	public Persona getHijo() {

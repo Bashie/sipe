@@ -16,8 +16,6 @@ public class TutorDAO extends BaseDAO<Tutor> {
  
     public List<Tutor> findAll() {
 		TypedQuery<Tutor> q = entityManager.createQuery("select t from Tutor t", Tutor.class);
-
 		return q.getResultList();
 	}
-    
 }

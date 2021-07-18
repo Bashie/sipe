@@ -1,6 +1,7 @@
 package sipe.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.JsonObject;
 
 public class UsuarioDTO {
 	
@@ -9,6 +10,7 @@ public class UsuarioDTO {
 	private String nombre;
 	private String apellido;
 	private Integer dni;
+	private String email;
 	
 	public String getNombre() {
 		return nombre;
@@ -42,10 +44,24 @@ public class UsuarioDTO {
 	public void setEncryptedPassword(String encryptedPassword) {
 		this.encryptedPassword = encryptedPassword;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	@Override
 	public String toString() {
 		return "Usuario [login=" + login + ", encryptedPassword=" + encryptedPassword + ", nombre=" + nombre
 				+ ", apellido=" + apellido + ", dni=" + dni + "]";
 	}
 
+	public JsonObject toJson() {
+		JsonObject json = new JsonObject();
+		json.addProperty("nombre", nombre);
+		json.addProperty("apellido", apellido);
+		json.addProperty("dni", dni);
+		json.addProperty("email", email);
+		return json;
+	}
 }
