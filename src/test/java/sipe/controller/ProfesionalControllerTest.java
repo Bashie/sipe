@@ -38,7 +38,7 @@ public class ProfesionalControllerTest {
 	public void saveProfesionalTest() {
 		doReturn(Profesional.fromDTO(UnitTestHelper.getProfesionalDto())).when(profesionalService).save(any());
 		
-		ProfesionalDTO resultado = profesionalController.saveProfesional(UnitTestHelper.PROFESIONAL_NOMBRE, UnitTestHelper.PROFESIONAL_APELLIDO, UnitTestHelper.PROFESIONAL_DNI, UnitTestHelper.AREA_DESARROLLO);
+		ProfesionalDTO resultado = profesionalController.saveProfesional(UnitTestHelper.PROFESIONAL_NOMBRE, UnitTestHelper.PROFESIONAL_APELLIDO, UnitTestHelper.PROFESIONAL_DNI, UnitTestHelper.MAIL, UnitTestHelper.AREA_DESARROLLO);
 		Assertions.assertEquals(resultado.getDni(), UnitTestHelper.PROFESIONAL_DNI);
 	}
 	

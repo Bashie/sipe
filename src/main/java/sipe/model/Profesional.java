@@ -47,6 +47,7 @@ public class Profesional extends Persona {
 		dto.setApellido(getApellido());
 		dto.setNombre(getNombre());
 		dto.setAreaDesarrollo(getAreaDesarrollo());
+		dto.setEmail(getEmail());
 		return dto;
 	}
 	
@@ -56,6 +57,7 @@ public class Profesional extends Persona {
 		profesional.setApellido(dto.getApellido());
 		profesional.setDni(dto.getDni());
 		profesional.setAreaDesarrollo(dto.getAreaDesarrollo());
+		profesional.setEmail(dto.getEmail());
 		return profesional;
 	}
 }

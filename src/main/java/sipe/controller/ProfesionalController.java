@@ -31,6 +31,7 @@ public class ProfesionalController {
 			@RequestParam(name="nombre", required = true) String nombre,
 			@RequestParam(name="apellido", required = true) String apellido,
 			@RequestParam(name="dni") Integer dni,
+			@RequestParam(name="email", required = false) String email,
 			@RequestParam(name="areaDesarrollo", required = true) String areaDesarrollo
 			) {
 		
@@ -39,6 +40,7 @@ public class ProfesionalController {
 		profesional.setApellido(apellido);
 		profesional.setDni(dni);
 		profesional.setAreaDesarrollo(areaDesarrollo);
+		profesional.setEmail(email);
 		Profesional result =  profesionalService.save(profesional);
 		profesional.setDni(result.getId());
 		return profesional;
