@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import sipe.dao.UsuarioDAO;
 import sipe.model.Usuario;
 import sipe.service.exception.InvalidLoginException;
-import sipe.util.CryptWithMD5;
+import sipe.util.Cryptor;
 
 @Component
 public class UsuarioService {
@@ -41,7 +41,7 @@ public class UsuarioService {
 		} catch (NoResultException e) {
 			throw new InvalidLoginException();
 		}
-		if (Objects.nonNull(usuario) && usuario.getEncryptedPassword().equals(CryptWithMD5.cryptWithMD5(password))) {
+		if (Objects.nonNull(usuario) && usuario.getEncryptedPassword().equals(Cryptor.cryptWithCipher(password))) {
 			return createToken(usuario);
 		}
 		return null;

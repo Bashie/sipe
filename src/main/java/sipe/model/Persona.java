@@ -49,4 +49,8 @@ public class Persona implements Guardable {
 	public Integer getId() {
 		return dni;
 	}
+	
+	public String getNombreCompleto() {
+		return getApellido() + ", " + getNombre();
+	}
 }

@@ -34,8 +34,8 @@ public class PracticaProfesionalService {
 		}
 	}
 	
-	public List<PracticaProfesionalDTO> getAllPracticasProfesionalesByProfesional() {
-		return practicaProfesionalDao.findAll().stream().map(PracticaProfesional::toDTO).collect(Collectors.toList());
+	public List<PracticaProfesionalDTO> getAllPracticasProfesionalesByTutor(Integer id) {
+		return practicaProfesionalDao.getAllPracticasProfesionalesByTutor(id).stream().map(PracticaProfesional::toDTO).collect(Collectors.toList());
 	}
 	
 	public Boolean delete(Integer id) {

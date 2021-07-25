@@ -20,4 +20,9 @@ public class ProfesionalDAO extends BaseDAO<Profesional> {
 		return q.getResultList();
 	}
     
+    public List<Profesional> findAllByTutorId() {
+		TypedQuery<Profesional> q = entityManager.createQuery("select t from Profesional t", Profesional.class);
+
+		return q.getResultList();
+	}
 }

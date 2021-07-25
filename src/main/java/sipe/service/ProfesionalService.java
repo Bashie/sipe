@@ -16,17 +16,16 @@ public class ProfesionalService {
 	@Autowired
 	private ProfesionalDAO profesionalDao;
 	
-	public Boolean save(ProfesionalDTO profesional) {
+	public Profesional save(ProfesionalDTO profesional) {
 		try {
-			profesionalDao.save(Profesional.fromDTO(profesional));
+			return profesionalDao.save(Profesional.fromDTO(profesional));
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
-		return true;
 	}
 	
 	public List<ProfesionalDTO> getAllProfesionales() {
-		return profesionalDao.findAll().stream().map(Profesional::toDTO).collect(Collectors.toList());
+		return profesionalDao.findAllByTutorId().stream().map(Profesional::toDTO).collect(Collectors.toList());
 	}
 	
 	public Boolean delete(Integer id) {

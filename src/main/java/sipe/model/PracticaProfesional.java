@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,7 +32,17 @@ public class PracticaProfesional implements Guardable {
 	private List<Sesion> sesiones;
 	@ManyToOne()
 	private Tutor tutor;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "practicaProfesional")
+	private List<Turno> turnos;
 	
+	public List<Turno> getTurnos() {
+		return turnos;
+	}
+
+	public void setTurnos(List<Turno> turnos) {
+		this.turnos = turnos;
+	}
+
 	public Profesional getProfesional() {
 		return profesional;
 	}

@@ -42,6 +42,10 @@ public class Usuario implements Guardable, Serializable {
 	})
 	private Persona persona;
 
+	public Usuario() {
+		
+	}
+	
 	public UsuarioDTO toDTO() {
 		UsuarioDTO dto = new UsuarioDTO();
 		dto.setDni(getDni());
@@ -50,7 +54,6 @@ public class Usuario implements Guardable, Serializable {
 		dto.setEmail(getPersona().getEmail());
 		return dto;
 	}
-	
 	
 	public Integer getDni() {
 		return dni;
@@ -76,10 +79,7 @@ public class Usuario implements Guardable, Serializable {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-	@Override
-	public String toString() {
-		return "Usuario [login=" + persona.getDni() + ", encryptedPassword=" + encryptedPassword + ", parent="	+ super.toString() + "]";
-	}
+
 	@Override
 	public Integer getId() {
 		return persona.getDni();

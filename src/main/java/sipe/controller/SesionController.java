@@ -57,7 +57,7 @@ public class SesionController {
 	
 	@RequestMapping("/sesiones/delete/{id}")
 	@ResponseBody
-	public Boolean deleteSesion(@PathVariable(name="id", required = true) String id) {
-		return sesionService.delete(Integer.valueOf(id));
+	public Boolean deleteSesion(@PathVariable(name="id", required = true) Integer id) {
+		return sesionService.delete(id);
 	}
 }

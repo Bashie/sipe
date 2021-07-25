@@ -48,16 +48,16 @@ public class PracticaController {
 		return practicaProfesional;
 	}
 	
-	@RequestMapping("/practicas/list")
+	@RequestMapping("/practicas/list/{id}")
 	@ResponseBody
-	public List<PracticaProfesionalDTO> getPracticaProfesionales() {
+	public List<PracticaProfesionalDTO> getPracticaProfesionales(@PathVariable(name="id", required = true) Integer id) {
 		logger.info("List Practicas");
-		return practicaProfesionalService.getAllPracticasProfesionalesByProfesional();
+		return practicaProfesionalService.getAllPracticasProfesionalesByTutor(id);
 	}
 	
 	@RequestMapping("/practicas/delete/{id}")
 	@ResponseBody
-	public Boolean deletePracticaProfesional(@PathVariable(name="id", required = true) String id) {
-		return practicaProfesionalService.delete(Integer.valueOf(id));
+	public Boolean deletePracticaProfesional(@PathVariable(name="id", required = true) Integer id) {
+		return practicaProfesionalService.delete(id);
 	}
 }

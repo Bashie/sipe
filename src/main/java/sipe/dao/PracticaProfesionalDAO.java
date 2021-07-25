@@ -20,7 +20,13 @@ public class PracticaProfesionalDAO extends BaseDAO<PracticaProfesional> {
 		return q.getResultList();
 	}
     
-    public List<PracticaProfesional> findAllByProfesional(Long id) {
+    public List<PracticaProfesional> getAllPracticasProfesionalesByTutor(Integer id) {
+		TypedQuery<PracticaProfesional> q = entityManager.createQuery("select t from PracticaProfesional t where tutor.id = " + id, PracticaProfesional.class);
+
+		return q.getResultList();
+	}
+    
+    public List<PracticaProfesional> findAllByProfesional(Integer id) {
 		TypedQuery<PracticaProfesional> q = entityManager.createQuery("select t from PracticaProfesional t where profesional.id = " + id, PracticaProfesional.class);
 
 		return q.getResultList();

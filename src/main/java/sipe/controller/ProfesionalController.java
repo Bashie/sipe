@@ -7,15 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import sipe.controller.dto.ProfesionalDTO;
+import sipe.model.Profesional;
 import sipe.service.ProfesionalService;
 
 @RestController
@@ -29,7 +27,7 @@ public class ProfesionalController {
 	
 	@RequestMapping("/profesionales/nuevo")
 	@ResponseBody
-	public Boolean saveProfesional(
+	public ProfesionalDTO saveProfesional(
 			@RequestParam(name="nombre", required = true) String nombre,
 			@RequestParam(name="apellido", required = true) String apellido,
 			@RequestParam(name="dni") Integer dni,
@@ -41,20 +39,22 @@ public class ProfesionalController {
 		profesional.setApellido(apellido);
 		profesional.setDni(dni);
 		profesional.setAreaDesarrollo(areaDesarrollo);
-		return profesionalService.save(profesional);
+		Profesional result =  profesionalService.save(profesional);
+		profesional.setDni(result.getId());
+		return profesional;
 	}
 	
 	@RequestMapping("/profesionales/list")
 	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
-	public List<ProfesionalDTO> getProfesionales(@RequestBody JsonNode payload) {
+	public List<ProfesionalDTO> getProfesionales() {
 		logger.info("List Profesionales");
 		return profesionalService.getAllProfesionales();
 	}
 	
 	@RequestMapping("/profesionales/delete/{id}")
 	@ResponseBody
-	public Boolean deleteProfesional(@PathVariable(name="id", required = true) String id) {
-		return profesionalService.delete(Integer.valueOf(id));
+	public Boolean deleteProfesional(@PathVariable(name="id", required = true) Integer id) {
+		return profesionalService.delete(id);
 	}
 }
