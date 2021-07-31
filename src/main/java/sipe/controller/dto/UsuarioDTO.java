@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 public class UsuarioDTO {
 	
 	private String login;
-	private String encryptedPassword;
+	private String claveEncriptada;
 	private String nombre;
 	private String apellido;
 	private Integer dni;
@@ -38,11 +38,11 @@ public class UsuarioDTO {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	public String getEncryptedPassword() {
-		return encryptedPassword;
+	public String getClaveEncriptada() {
+		return claveEncriptada;
 	}
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
+	public void setClaveEncriptada(String claveEncriptada) {
+		this.claveEncriptada = claveEncriptada;
 	}
 	public String getEmail() {
 		return email;
@@ -50,12 +50,6 @@ public class UsuarioDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Override
-	public String toString() {
-		return "Usuario [login=" + login + ", encryptedPassword=" + encryptedPassword + ", nombre=" + nombre
-				+ ", apellido=" + apellido + ", dni=" + dni + "]";
-	}
-
 	public JsonObject toJson() {
 		JsonObject json = new JsonObject();
 		json.addProperty("nombre", nombre);

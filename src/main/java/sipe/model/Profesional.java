@@ -1,10 +1,12 @@
 package sipe.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -16,8 +18,10 @@ import sipe.controller.dto.ProfesionalDTO;
 public class Profesional extends Persona {
 	private String areaDesarrollo;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "profesional")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<PracticaProfesional> practicasProfesionales;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<DisponibilidadHoraria> disponibilidadesHorarias;
 	
 	public List<PracticaProfesional> getPracticasProfesionales() {
 		return practicasProfesionales;
@@ -33,6 +37,14 @@ public class Profesional extends Persona {
 
 	public void setAreaDesarrollo(String areaDesarrollo) {
 		this.areaDesarrollo = areaDesarrollo;
+	}
+
+	public List<DisponibilidadHoraria> getDisponibilidadesHorarias() {
+		return disponibilidadesHorarias;
+	}
+
+	public void setDisponibilidadesHorarias(List<DisponibilidadHoraria> disponibilidadesHorarias) {
+		this.disponibilidadesHorarias = disponibilidadesHorarias;
 	}
 
 	@Override

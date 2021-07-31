@@ -28,19 +28,19 @@ public class SesionController {
 	@RequestMapping("/sesiones/nuevo")
 	@ResponseBody
 	public SesionDTO saveSesion(
-			@RequestParam(name="end", required = true) String end,
+			@RequestParam(name="fin", required = true) String fin,
 			@RequestParam(name="notas", required = true) String notas,
 			@RequestParam(name="id", required = false) Integer id,
 			@RequestParam(name="practicaProfesionalId", required = true) Integer practicaProfesionalId,
-			@RequestParam(name="start", required = true) String start
+			@RequestParam(name="inicio", required = true) String inicio
 			) {
 		
 		SesionDTO sesion = new SesionDTO();
-		sesion.setEnd(end);
+		sesion.setFin(fin);
 		sesion.setId(id);
 		sesion.setNotas(notas);
 		sesion.setPracticaProfesionalId(practicaProfesionalId);
-		sesion.setStart(start);
+		sesion.setInicio(inicio);
 		Sesion result = sesionService.save(sesion);
 		sesion.setId(result.getId());
 		return sesion;
@@ -57,7 +57,7 @@ public class SesionController {
 	
 	@RequestMapping("/sesiones/delete/{id}")
 	@ResponseBody
-	public Boolean deleteSesion(@PathVariable(name="id", required = true) Integer id) {
+	public SesionDTO deleteSesion(@PathVariable(name="id", required = true) Integer id) {
 		return sesionService.delete(id);
 	}
 }

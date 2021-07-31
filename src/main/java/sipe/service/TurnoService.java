@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import sipe.controller.dto.TurnoDTO;
+import sipe.dao.DisponibilidadHorariaDAO;
 import sipe.dao.PracticaProfesionalDAO;
 import sipe.dao.TurnoDAO;
+import sipe.model.DisponibilidadHoraria;
 import sipe.model.PracticaProfesional;
 import sipe.model.Turno;
+import sipe.service.exception.ErrorException;
 import sipe.util.Mailer;
 
 @Component
@@ -23,29 +26,36 @@ public class TurnoService {
 	private PracticaProfesionalDAO practicaProfesionalDao;
 	@Autowired
 	private Mailer mailer;
+	@Autowired
+	private DisponibilidadHorariaDAO disponibilidadHorariaDAO;
 	
-	public Turno save(TurnoDTO turno) {
-		try {
-			PracticaProfesional practicaProfesional = practicaProfesionalDao.findById(turno.getPracticaProfesionalId());
-			return turnoDAO.save(Turno.fromDTO(turno, practicaProfesional));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+	public Turno save(TurnoDTO turnoDto) throws ErrorException {
+		PracticaProfesional practicaProfesional = practicaProfesionalDao.findById(turnoDto.getPracticaProfesionalId());
+		Turno turno = Turno.fromDTO(turnoDto, practicaProfesional);
+		List<DisponibilidadHoraria> disponibilidad = disponibilidadHorariaDAO.findAllByProfesionalDeLaFecha(practicaProfesional.getProfesional().getId(), turno.getInicio());
+		if(disponibilidad.isEmpty() || controlarDisponibilidad(turno, disponibilidad)) {
+			return turnoDAO.save(turno);
 		}
+		throw new ErrorException("El profesional no dispone de horarios este día.");
 	}
 	
+	private Boolean controlarDisponibilidad(Turno turno, List<DisponibilidadHoraria> disponibilidad) {
+		for (DisponibilidadHoraria disponibilidadHoraria : disponibilidad) {
+			if (disponibilidadHoraria.getInicio().isBefore(turno.getInicio()) && disponibilidadHoraria.getFin().isAfter(turno.getFin())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public List<TurnoDTO> getAllTurnosByPractica(Integer id) {
 		return turnoDAO.findAllByPractica(id).stream().map(Turno::toDTO).collect(Collectors.toList());
 	}
 	
-	public Boolean delete(Integer id) {
+	public TurnoDTO delete(Integer id) {
 		Turno turno = turnoDAO.findById(id);
-		try {
-			turnoDAO.delete(turno);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+		turnoDAO.delete(turno);
+		return turno.toDTO();
 	}
 
 	public TurnoDTO confirmar(Integer id) {

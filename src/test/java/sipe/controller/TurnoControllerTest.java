@@ -21,6 +21,7 @@ import sipe.model.Profesional;
 import sipe.model.Turno;
 import sipe.model.Tutor;
 import sipe.service.TurnoService;
+import sipe.service.exception.ErrorException;
 import sipe.utils.UnitTestHelper;
 
 public class TurnoControllerTest {
@@ -37,7 +38,7 @@ public class TurnoControllerTest {
 	}
 	
 	@Test
-	public void saveTurnoTest() {
+	public void saveTurnoTest() throws ErrorException {
 		doReturn(Turno.fromDTO(UnitTestHelper.getTurnoDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor()))).when(turnoService).save(any());
 		
 		TurnoDTO resultado = turnoController.saveTurno(UnitTestHelper.FIN, Boolean.FALSE, UnitTestHelper.TURNO_ID, UnitTestHelper.PRACTICA_ID, UnitTestHelper.INICIO);
@@ -60,7 +61,7 @@ public class TurnoControllerTest {
 	public void deleteTurnoTest() {
 		doReturn(Boolean.TRUE).when(turnoService).delete(UnitTestHelper.TURNO_ID);
 		
-		Boolean resultado = turnoController.deleteTurno(UnitTestHelper.TURNO_ID);
-		Assertions.assertTrue(resultado);
+		TurnoDTO resultado = turnoController.deleteTurno(UnitTestHelper.TURNO_ID);
+		Assertions.assertNotNull(resultado);
 	}
 }

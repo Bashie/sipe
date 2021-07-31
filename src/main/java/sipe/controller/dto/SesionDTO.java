@@ -2,8 +2,8 @@ package sipe.controller.dto;
 
 public class SesionDTO {
 	private String notas;
-	private String end;
-	private String start;
+	private String fin;
+	private String inicio;
 	private Integer id;
 	private PracticaProfesionalDTO practicaProfesional;
 	private Integer practicaProfesionalId;
@@ -13,17 +13,17 @@ public class SesionDTO {
 	public void setNotas(String notas) {
 		this.notas = notas;
 	}
-	public String getEnd() {
-		return end;
+	public String getFin() {
+		return fin;
 	}
-	public void setEnd(String end) {
-		this.end = end;
+	public void setFin(String fin) {
+		this.fin = fin;
 	}
-	public String getStart() {
-		return start;
+	public String getInicio() {
+		return inicio;
 	}
-	public void setStart(String start) {
-		this.start = start;
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
 	}
 	public Integer getId() {
 		return id;
@@ -44,10 +44,4 @@ public class SesionDTO {
 	public void setPracticaProfesionalId(Integer practicaProfesionalId) {
 		this.practicaProfesionalId = practicaProfesionalId;
 	}
-	@Override
-	public String toString() {
-		return "SesionDTO [notas=" + notas + ", end=" + end + ", start=" + start + ", id=" + id
-				+ ", practicaProfesional=" + practicaProfesional + "]";
-	}
-
 }

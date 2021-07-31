@@ -34,14 +34,9 @@ public class SesionService {
 		return sesionDao.findAllByPractica(id).stream().map(Sesion::toDTO).collect(Collectors.toList());
 	}
 	
-	public Boolean delete(Integer id) {
+	public SesionDTO delete(Integer id) {
 		Sesion sesion = sesionDao.findById(id);
-		try {
-			sesionDao.delete(sesion);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+		sesionDao.delete(sesion);
+		return sesion.toDTO();
 	}
-	
 }

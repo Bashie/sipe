@@ -28,18 +28,17 @@ public class PracticaController {
 	@RequestMapping("/practicas/nuevo")
 	@ResponseBody
 	public PracticaProfesionalDTO savePracticaProfesional(
-			@RequestParam(name="dayOfWeek", required = true) Integer dayOfWeek,
+			@RequestParam(name="diaSemana", required = true) Integer diaSemana,
 			@RequestParam(name="id", required = false) Integer id,
 			@RequestParam(name="profesional", required = true) Integer profesionalId,
 			@RequestParam(name="tutorDni", required = true) Integer tutorDni,
-			@RequestParam(name="startTime") String startTime,
-			@RequestParam(name="endTime", required = true) String endTime
+			@RequestParam(name="inicio") String inicio,
+			@RequestParam(name="fin", required = true) String fin
 			) {
-		
 		PracticaProfesionalDTO practicaProfesional = new PracticaProfesionalDTO();
-		practicaProfesional.setDayOfWeek(dayOfWeek);
-		practicaProfesional.setStartTime(startTime);
-		practicaProfesional.setEndTime(endTime);
+		practicaProfesional.setDiaSemana(diaSemana);
+		practicaProfesional.setInicio(inicio);
+		practicaProfesional.setFin(fin);
 		practicaProfesional.setProfesionalId(profesionalId);
 		practicaProfesional.setTutorDni(tutorDni);
 		practicaProfesional.setId(id);

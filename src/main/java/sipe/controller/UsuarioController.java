@@ -27,7 +27,7 @@ public class UsuarioController {
 	@RequestMapping("/users/authenticate")
 	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
-	public String saveProfesional(@RequestBody JsonNode payload) {
+	public String login(@RequestBody JsonNode payload) {
 		logger.info("Login usuario: " + payload.get("username").textValue());
 		try {
 			return usuarioService.login(payload.get("username").textValue(), payload.get("password").textValue());

@@ -22,10 +22,9 @@ public class Turno implements Guardable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private LocalDateTime start;
-	private LocalDateTime end;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "practicaProfesional")
+	private LocalDateTime inicio;
+	private LocalDateTime fin;
+	@ManyToOne()
 	private PracticaProfesional practicaProfesional;
 	private Boolean confirmado = false;
 	
@@ -35,17 +34,17 @@ public class Turno implements Guardable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public LocalDateTime getStart() {
-		return start;
+	public LocalDateTime getInicio() {
+		return inicio;
 	}
-	public void setStart(LocalDateTime start) {
-		this.start = start;
+	public void setInicio(LocalDateTime inicio) {
+		this.inicio = inicio;
 	}
-	public LocalDateTime getEnd() {
-		return end;
+	public LocalDateTime getFin() {
+		return fin;
 	}
-	public void setEnd(LocalDateTime end) {
-		this.end = end;
+	public void setFin(LocalDateTime fin) {
+		this.fin = fin;
 	}
 	public PracticaProfesional getPracticaProfesional() {
 		return practicaProfesional;
@@ -61,15 +60,15 @@ public class Turno implements Guardable{
 	}
 	@Override
 	public String toString() {
-		return "Turno [id=" + id + ", start=" + start + ", end=" + end + ", practicaProfesional=" + practicaProfesional
+		return "Turno [id=" + id + ", inicio=" + inicio + ", fin=" + fin + ", practicaProfesional=" + practicaProfesional
 				+ ", confirmado=" + confirmado + "]";
 	}
 	
 	public TurnoDTO toDTO() {
 		TurnoDTO dto = new TurnoDTO();
 		dto.setId(getId());
-		dto.setEnd(getEnd().format(formatter));
-		dto.setStart(getStart().format(formatter));
+		dto.setFin(getFin().format(formatter));
+		dto.setInicio(getInicio().format(formatter));
 		dto.setConfirmado(getConfirmado());
 		dto.setPracticaProfesional(getPracticaProfesional().toDTO());
 		dto.setPracticaProfesionalId(getPracticaProfesional().getId());
@@ -79,8 +78,8 @@ public class Turno implements Guardable{
 	public static Turno fromDTO(TurnoDTO dto, PracticaProfesional practicaProfesional) {
 		Turno turno = new Turno();
 		turno.setId(dto.getId());
-		turno.setEnd(LocalDateTime.parse(dto.getEnd(), formatter));
-		turno.setStart(LocalDateTime.parse(dto.getStart(), formatter));
+		turno.setFin(LocalDateTime.parse(dto.getFin(), formatter));
+		turno.setInicio(LocalDateTime.parse(dto.getInicio(), formatter));
 		turno.setConfirmado(dto.getConfirmado());
 		turno.setPracticaProfesional(practicaProfesional);
 		return turno;

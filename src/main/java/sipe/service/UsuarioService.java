@@ -41,10 +41,10 @@ public class UsuarioService {
 		} catch (NoResultException e) {
 			throw new InvalidLoginException();
 		}
-		if (Objects.nonNull(usuario) && usuario.getEncryptedPassword().equals(Cryptor.cryptWithCipher(password))) {
+		if (Objects.nonNull(usuario) && usuario.getClaveEncriptada().equals(Cryptor.cryptWithCipher(password))) {
 			return createToken(usuario);
 		}
-		return null;
+		throw new InvalidLoginException();
 	}
 	
 	private String createToken(Usuario usuario) {

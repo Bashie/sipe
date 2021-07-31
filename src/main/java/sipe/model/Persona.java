@@ -1,9 +1,14 @@
 package sipe.model;
 
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +20,19 @@ public class Persona implements Guardable {
 	@Id
 	private Integer dni;
 	private String email;
+	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
+	private Usuario usuario;
 	
+	public Boolean tieneUsuario() {
+		return !Objects.isNull(usuario);
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public String getNombre() {
 		return nombre;
 	}

@@ -69,8 +69,8 @@ public class Mailer {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("<h1>Su turno ha sido" + (status ? "confirmado" : "Cancelado") + "</h1><br>");
 		buffer.append("Práctica: " + turno.getPracticaProfesional().getProfesional().getAreaDesarrollo() + "<br>");
-		buffer.append("Fecha: " + turno.getStart().format(DateTimeFormatter.ISO_LOCAL_DATE));
-		buffer.append(" a las " + turno.getStart().format(DateTimeFormatter.ISO_LOCAL_TIME) + "<br>");
+		buffer.append("Fecha: " + turno.getInicio().format(DateTimeFormatter.ISO_LOCAL_DATE));
+		buffer.append(" a las " + turno.getInicio().format(DateTimeFormatter.ISO_LOCAL_TIME) + "<br>");
 		buffer.append("Profesional: " + turno.getPracticaProfesional().getProfesional().getNombreCompleto() + "<br>");
 		buffer.append("Padre/Tutor: " + turno.getPracticaProfesional().getTutor().getNombreCompleto()+ "<br>");
 		return buffer.toString();

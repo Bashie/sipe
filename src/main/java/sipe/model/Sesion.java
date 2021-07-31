@@ -22,24 +22,23 @@ public class Sesion implements Guardable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private LocalDateTime start;
-	private LocalDateTime end;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "practicaProfesional")
+	private LocalDateTime inicio;
+	private LocalDateTime fin;
+	@OneToOne()
 	private PracticaProfesional practicaProfesional;
 	private String notas;
 	
-	public LocalDateTime getStart() {
-		return start;
+	public LocalDateTime getInicio() {
+		return inicio;
 	}
-	public void setStart(LocalDateTime start) {
-		this.start = start;
+	public void setInicio(LocalDateTime inicio) {
+		this.inicio = inicio;
 	}
-	public LocalDateTime getEnd() {
-		return end;
+	public LocalDateTime getFin() {
+		return fin;
 	}
-	public void setEnd(LocalDateTime end) {
-		this.end = end;
+	public void setFin(LocalDateTime fin) {
+		this.fin = fin;
 	}
 
 	public Integer getId() {
@@ -64,8 +63,8 @@ public class Sesion implements Guardable {
 	public SesionDTO toDTO() {
 		SesionDTO dto = new SesionDTO();
 		dto.setId(getId());
-		dto.setEnd(getEnd().format(formatter));
-		dto.setStart(getStart().format(formatter));
+		dto.setFin(getFin().format(formatter));
+		dto.setInicio(getInicio().format(formatter));
 		dto.setNotas(getNotas());
 		dto.setPracticaProfesional(getPracticaProfesional().toDTO());
 		dto.setPracticaProfesionalId(getPracticaProfesional().getId());
@@ -76,8 +75,8 @@ public class Sesion implements Guardable {
 		Sesion sesion = new Sesion();
 		sesion.setId(dto.getId());
 		System.out.println(LocalDateTime.now().format(formatter));
-		sesion.setEnd(LocalDateTime.parse(dto.getEnd(), formatter));
-		sesion.setStart(LocalDateTime.parse(dto.getStart(), formatter));
+		sesion.setFin(LocalDateTime.parse(dto.getFin(), formatter));
+		sesion.setInicio(LocalDateTime.parse(dto.getInicio(), formatter));
 		sesion.setNotas(dto.getNotas());
 		sesion.setPracticaProfesional(practicaProfesional);
 		return sesion;

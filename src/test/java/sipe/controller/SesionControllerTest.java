@@ -59,7 +59,7 @@ public class SesionControllerTest {
 	public void deleteSesionTest() {
 		doReturn(Boolean.TRUE).when(sesionService).delete(UnitTestHelper.SESION_ID);
 		
-		Boolean resultado = sesionController.deleteSesion(UnitTestHelper.SESION_ID);
-		Assertions.assertTrue(resultado);
+		SesionDTO resultado = sesionController.deleteSesion(UnitTestHelper.SESION_ID);
+		Assertions.assertNotNull(resultado);
 	}
 }

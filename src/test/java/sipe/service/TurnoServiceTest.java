@@ -24,6 +24,7 @@ import sipe.model.PracticaProfesional;
 import sipe.model.Profesional;
 import sipe.model.Turno;
 import sipe.model.Tutor;
+import sipe.service.exception.ErrorException;
 import sipe.util.Mailer;
 import sipe.utils.UnitTestHelper;
 
@@ -46,7 +47,7 @@ public class TurnoServiceTest {
 	}
 	
 	@Test
-	public void saveTest() {
+	public void saveTest() throws ErrorException {
 		Turno turno = Turno.fromDTO(UnitTestHelper.getTurnoDto(), null);
 		turno.setId(UnitTestHelper.TURNO_ID);
 		TurnoDTO dto = UnitTestHelper.getTurnoDto();
@@ -79,8 +80,8 @@ public class TurnoServiceTest {
 		doReturn(turno).when(turnoDAO).save(turno);
 		doReturn(turno).when(turnoDAO).findById(UnitTestHelper.TURNO_ID);
 		
-		Boolean result = turnoService.delete(UnitTestHelper.TURNO_ID);
-		Assertions.assertTrue(result);
+		TurnoDTO result = turnoService.delete(UnitTestHelper.TURNO_ID);
+		Assertions.assertNotNull(result);
 		verify(turnoDAO).delete(any());
 	}
 	

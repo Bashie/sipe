@@ -6,9 +6,9 @@ public class PracticaProfesionalDTO implements Serializable {
 
 	private static final long serialVersionUID = 8559217347806576065L;
 	private Integer id;
-	private Integer dayOfWeek;
-	private String startTime;
-	private String endTime;
+	private Integer diaSemana;
+	private String inicio;
+	private String fin;
 	private String profesional;
 	private Integer profesionalId;
 	private String areaDesarrollo;
@@ -20,23 +20,23 @@ public class PracticaProfesionalDTO implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getDayOfWeek() {
-		return dayOfWeek;
+	public Integer getDiaSemana() {
+		return diaSemana;
 	}
-	public void setDayOfWeek(Integer dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
+	public void setDiaSemana(Integer diaSemana) {
+		this.diaSemana = diaSemana;
 	}
-	public String getStartTime() {
-		return startTime;
+	public String getInicio() {
+		return inicio;
 	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
 	}
-	public String getEndTime() {
-		return endTime;
+	public String getFin() {
+		return fin;
 	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setFin(String fin) {
+		this.fin = fin;
 	}
 	public String getProfesional() {
 		return profesional;
@@ -64,11 +64,6 @@ public class PracticaProfesionalDTO implements Serializable {
 	}
 	public void setAreaDesarrollo(String areaDesarrollo) {
 		this.areaDesarrollo = areaDesarrollo;
-	}
-	@Override
-	public String toString() {
-		return "PracticaProfesionalDTO [id=" + id + ", dayOfWeek=" + dayOfWeek + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", profesional=" + profesional + "]";
 	}
 	
 }

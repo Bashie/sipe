@@ -33,12 +33,12 @@ public class Usuario implements Guardable, Serializable {
 	}
 	@Id
 	private Integer dni;
-	private String encryptedPassword;
+	private String claveEncriptada;
 	private TipoUsuario type;
 	@MapsId
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumns(value = {
-		@JoinColumn(name = "persona", referencedColumnName = "dni")
+		@JoinColumn(name = "persona_dni", referencedColumnName = "dni")
 	})
 	private Persona persona;
 
@@ -61,11 +61,11 @@ public class Usuario implements Guardable, Serializable {
 	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
-	public String getEncryptedPassword() {
-		return encryptedPassword;
+	public String getClaveEncriptada() {
+		return claveEncriptada;
 	}
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
+	public void setClaveEncriptada(String claveEncriptada) {
+		this.claveEncriptada = claveEncriptada;
 	}
 	public TipoUsuario getType() {
 		return type;

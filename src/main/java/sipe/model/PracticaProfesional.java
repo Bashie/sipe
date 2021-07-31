@@ -23,9 +23,9 @@ public class PracticaProfesional implements Guardable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private DayOfWeek dayOfWeek;
-	private LocalTime startTime;
-	private LocalTime endTime;
+	private DayOfWeek diaSemana;
+	private LocalTime inicio;
+	private LocalTime fin;
 	@ManyToOne()
 	private Profesional profesional;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "practicaProfesional")
@@ -59,28 +59,28 @@ public class PracticaProfesional implements Guardable {
 		this.id = id;
 	}
 
-	public DayOfWeek getDayOfWeek() {
-		return dayOfWeek;
+	public DayOfWeek getDiaSemana() {
+		return diaSemana;
 	}
 
-	public void setDayOfWeek(DayOfWeek dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
+	public void setDiaSemana(DayOfWeek diaSemana) {
+		this.diaSemana = diaSemana;
 	}
 
-	public LocalTime getStartTime() {
-		return startTime;
+	public LocalTime getInicio() {
+		return inicio;
 	}
 
-	public void setStartTime(LocalTime startTime) {
-		this.startTime = startTime;
+	public void setInicio(LocalTime inicio) {
+		this.inicio = inicio;
 	}
 
-	public LocalTime getEndTime() {
-		return endTime;
+	public LocalTime getFin() {
+		return fin;
 	}
 
-	public void setEndTime(LocalTime endTime) {
-		this.endTime = endTime;
+	public void setFin(LocalTime fin) {
+		this.fin = fin;
 	}
 
 	public List<Sesion> getSesiones() {
@@ -101,12 +101,12 @@ public class PracticaProfesional implements Guardable {
 	public PracticaProfesionalDTO toDTO() {
 		PracticaProfesionalDTO dto = new PracticaProfesionalDTO();
 		dto.setId(getId());
-		dto.setStartTime(getStartTime().format(DateTimeFormatter.ISO_TIME));
-		dto.setEndTime(getEndTime().format(DateTimeFormatter.ISO_TIME));
+		dto.setInicio(getInicio().format(DateTimeFormatter.ISO_TIME));
+		dto.setFin(getFin().format(DateTimeFormatter.ISO_TIME));
 		dto.setProfesional(getProfesional().getApellido() + ", " + getProfesional().getNombre());
 		dto.setProfesionalId(getProfesional().getDni());
 		dto.setTutorDni(getTutor().getDni());
-		dto.setDayOfWeek(Objects.isNull(getDayOfWeek()) ? 1 : getDayOfWeek().getValue());
+		dto.setDiaSemana(Objects.isNull(getDiaSemana()) ? 1 : getDiaSemana().getValue());
 		dto.setAreaDesarrollo(getProfesional().getAreaDesarrollo());
 		return dto;
 	}
@@ -114,11 +114,11 @@ public class PracticaProfesional implements Guardable {
 	public static PracticaProfesional fromDTO(PracticaProfesionalDTO dto, Profesional profesional, Tutor tutor) {
 		PracticaProfesional practicaProfesional = new PracticaProfesional();
 		practicaProfesional.setId(dto.getId());
-		practicaProfesional.setStartTime(LocalTime.parse(dto.getStartTime(), DateTimeFormatter.ISO_TIME));
-		practicaProfesional.setEndTime(LocalTime.parse(dto.getEndTime(), DateTimeFormatter.ISO_TIME));
+		practicaProfesional.setInicio(LocalTime.parse(dto.getInicio(), DateTimeFormatter.ISO_TIME));
+		practicaProfesional.setFin(LocalTime.parse(dto.getFin(), DateTimeFormatter.ISO_TIME));
 		practicaProfesional.setProfesional(profesional);
 		practicaProfesional.setTutor(tutor);
-		practicaProfesional.setDayOfWeek(DayOfWeek.of(dto.getDayOfWeek()));
+		practicaProfesional.setDiaSemana(DayOfWeek.of(dto.getDiaSemana()));
 		return practicaProfesional;
 	}
 }

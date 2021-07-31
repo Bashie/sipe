@@ -1,5 +1,6 @@
 package sipe.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -26,7 +27,10 @@ public class TurnoDAO extends BaseDAO<Turno> {
 	}
 
 	public List<Turno> findAllByProfesional(Integer id, List<String> practicas) {
-		TypedQuery<Turno> q = entityManager.createQuery("select t from Turno t where practicaProfesional.id in (" + String.join(",", practicas) + ")", Turno.class);
-		return q.getResultList();
+		if(!practicas.isEmpty()) {
+			TypedQuery<Turno> q = entityManager.createQuery("select t from Turno t where practicaProfesional.id in (" + String.join(",", practicas) + ")", Turno.class);
+			return q.getResultList();
+		}
+		return new ArrayList<Turno>();
 	}
 }

@@ -1,9 +1,9 @@
 package sipe.controller.dto;
 
-public class TurnoDTO {
+public class TurnoDTO extends BaseDTO {
 	private Integer id;
-	private String start;
-	private String end;
+	private String inicio;
+	private String fin;
 	private PracticaProfesionalDTO practicaProfesional;
 	private Integer practicaProfesionalId;
 	private Boolean confirmado = false;
@@ -14,17 +14,17 @@ public class TurnoDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getStart() {
-		return start;
+	public String getInicio() {
+		return inicio;
 	}
-	public void setStart(String start) {
-		this.start = start;
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
 	}
-	public String getEnd() {
-		return end;
+	public String getFin() {
+		return fin;
 	}
-	public void setEnd(String end) {
-		this.end = end;
+	public void setFin(String fin) {
+		this.fin = fin;
 	}
 	public PracticaProfesionalDTO getPracticaProfesional() {
 		return practicaProfesional;
@@ -43,11 +43,5 @@ public class TurnoDTO {
 	}
 	public void setConfirmado(Boolean confirmado) {
 		this.confirmado = confirmado;
-	}
-	@Override
-	public String toString() {
-		return "TurnoDTO [id=" + id + ", start=" + start + ", end=" + end + ", practicaProfesional="
-				+ practicaProfesional + ", practicaProfesionalId=" + practicaProfesionalId + ", confirmado="
-				+ confirmado + "]";
 	}
 }

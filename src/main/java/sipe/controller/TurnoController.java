@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sipe.controller.dto.TurnoDTO;
 import sipe.model.Turno;
 import sipe.service.TurnoService;
+import sipe.service.exception.ErrorException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,21 +29,26 @@ public class TurnoController {
 	@RequestMapping("/turnos/nuevo")
 	@ResponseBody
 	public TurnoDTO saveTurno(
-			@RequestParam(name="end", required = true) String end,
+			@RequestParam(name="fin", required = true) String fin,
 			@RequestParam(name="confirmado", required = true) Boolean confirmado,
 			@RequestParam(name="id", required = false) Integer id,
 			@RequestParam(name="practicaProfesionalId", required = true) Integer practicaProfesionalId,
-			@RequestParam(name="start", required = true) String start
+			@RequestParam(name="inicio", required = true) String inicio
 			) {
 		
 		TurnoDTO turno = new TurnoDTO();
-		turno.setEnd(end);
+		turno.setFin(fin);
 		turno.setId(id);
 		turno.setConfirmado(confirmado);
 		turno.setPracticaProfesionalId(practicaProfesionalId);
-		turno.setStart(start);
-		Turno result = turnoService.save(turno);
-		turno.setId(result.getId());
+		turno.setInicio(inicio);
+		Turno result;
+		try {
+			result = turnoService.save(turno);
+			turno.setId(result.getId());
+		} catch (ErrorException e) {
+			turno.setErrorMessage(e.getMessage());
+		}
 		return turno;
 		
 	}
@@ -80,7 +86,7 @@ public class TurnoController {
 	
 	@RequestMapping("/turnos/delete/{id}")
 	@ResponseBody
-	public Boolean deleteTurno(@PathVariable(name="id", required = true) Integer id) {
+	public TurnoDTO deleteTurno(@PathVariable(name="id", required = true) Integer id) {
 		return turnoService.delete(id);
 	}
 }

@@ -73,8 +73,8 @@ public class SesionServiceTest {
 		doReturn(sesion).when(sesionDao).save(sesion);
 		doReturn(sesion).when(sesionDao).findById(UnitTestHelper.SESION_ID);
 		
-		Boolean result = sesionService.delete(UnitTestHelper.SESION_ID);
-		Assertions.assertTrue(result);
+		SesionDTO result = sesionService.delete(UnitTestHelper.SESION_ID);
+		Assertions.assertNotNull(result);
 		verify(sesionDao).delete(any());
 	}
 
