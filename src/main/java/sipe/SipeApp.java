@@ -22,7 +22,9 @@ public class SipeApp {
    				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
    				.authorizeRequests()
    				.antMatchers("/**").permitAll()
-   				.anyRequest().authenticated();
+   				.anyRequest().authenticated().and()
+   				.cors();
    		}
    	}
+	
 }

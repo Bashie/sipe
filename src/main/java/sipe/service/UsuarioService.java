@@ -53,11 +53,11 @@ public class UsuarioService {
 		json.addProperty("nombre", usuario.getPersona().getNombre());
 		json.addProperty("dni", usuario.getDni());
 		json.addProperty("userType", usuario.getType().name());
-		json.addProperty("token", getJWTToken(String.valueOf(usuario.getPersona().getDni())));
+		json.addProperty("token", UsuarioService.getJWTToken(String.valueOf(usuario.getPersona().getDni())));
 		return json.toString();
 	}
 	
-	private String getJWTToken(String username) {
+	public static String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");

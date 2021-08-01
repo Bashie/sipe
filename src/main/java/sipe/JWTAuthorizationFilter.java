@@ -21,11 +21,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import sipe.service.UsuarioService;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	Logger logger = LoggerFactory.getLogger(JWTAuthorizationFilter.class);
-	
+
 	private final String HEADER = "Authorization";
 	private final String PREFIX = "Bearer ";
 	private final String SECRET = "mySecretKey";
@@ -33,7 +34,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 		try {
-			if (checkJWTToken(request, response)) {
+			if ("/users/authenticate".equals(request.getRequestURI()) || checkJWTToken(request, response)) {
 				Claims claims = validateToken(request);
 				if (claims.get("authorities") != null) {
 					setUpSpringAuthentication(claims);
@@ -52,7 +53,12 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}	
 
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
+		String jwtToken;
+		if ("/users/authenticate".equals(request.getRequestURI())) {
+			jwtToken = UsuarioService.getJWTToken(request.getParameter("usuario"));
+		} else {
+			jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
+		}
 		logger.info("jwtToken:" + jwtToken);
 		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}

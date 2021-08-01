@@ -21,20 +21,18 @@ import sipe.service.SesionService;
 public class SesionController {
 
 	Logger logger = LoggerFactory.getLogger(SesionController.class);
-	
+
 	@Autowired
 	private SesionService sesionService;
-	
+
 	@RequestMapping("/sesiones/nuevo")
 	@ResponseBody
-	public SesionDTO saveSesion(
-			@RequestParam(name="fin", required = true) String fin,
-			@RequestParam(name="notas", required = true) String notas,
-			@RequestParam(name="id", required = false) Integer id,
-			@RequestParam(name="practicaProfesionalId", required = true) Integer practicaProfesionalId,
-			@RequestParam(name="inicio", required = true) String inicio
-			) {
-		
+	public SesionDTO saveSesion(@RequestParam(name = "fin", required = true) String fin,
+			@RequestParam(name = "notas", required = true) String notas,
+			@RequestParam(name = "id", required = false) Integer id,
+			@RequestParam(name = "practicaProfesionalId", required = true) Integer practicaProfesionalId,
+			@RequestParam(name = "inicio", required = true) String inicio) {
+
 		SesionDTO sesion = new SesionDTO();
 		sesion.setFin(fin);
 		sesion.setId(id);
@@ -44,20 +42,28 @@ public class SesionController {
 		Sesion result = sesionService.save(sesion);
 		sesion.setId(result.getId());
 		return sesion;
-		
+
 	}
-	
+
 	@RequestMapping("/sesiones/list/{id}")
 	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
-	public List<SesionDTO> getSesiones(@PathVariable(name="id", required = true) Integer id) {
+	public List<SesionDTO> getSesiones(@PathVariable(name = "id", required = true) Integer id) {
 		logger.info("List Profesionales");
 		return sesionService.getAllSesionesByPractica(id);
 	}
-	
+
 	@RequestMapping("/sesiones/delete/{id}")
 	@ResponseBody
-	public SesionDTO deleteSesion(@PathVariable(name="id", required = true) Integer id) {
+	public SesionDTO deleteSesion(@PathVariable(name = "id", required = true) Integer id) {
 		return sesionService.delete(id);
+	}
+
+	@RequestMapping("/sesiones/compartir/{sesionId}/{profesionalId}/{comentario}")
+	@ResponseBody
+	public SesionDTO compartirSesion(@PathVariable(name = "sesionId", required = true) Integer sesionId,
+			@PathVariable(name = "profesionalId", required = true) Integer profesionalId,
+			@PathVariable(name = "comentario", required = true) String comentario) {
+		return sesionService.compartir(sesionId, profesionalId, comentario);
 	}
 }

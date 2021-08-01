@@ -1,6 +1,7 @@
 package sipe.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,12 @@ import org.springframework.stereotype.Component;
 
 import sipe.controller.dto.SesionDTO;
 import sipe.dao.PracticaProfesionalDAO;
+import sipe.dao.ProfesionalDAO;
 import sipe.dao.SesionDAO;
 import sipe.model.PracticaProfesional;
+import sipe.model.Profesional;
 import sipe.model.Sesion;
+import sipe.util.Mailer;
 
 @Component
 public class SesionService {
@@ -19,6 +23,10 @@ public class SesionService {
 	private SesionDAO sesionDao;
 	@Autowired
 	private PracticaProfesionalDAO practicaProfesionalDao;
+	@Autowired
+	private Mailer mailer;
+	@Autowired
+	private ProfesionalDAO profesionalDao;
 	
 	public Sesion save(SesionDTO session) {
 		try {
@@ -37,6 +45,19 @@ public class SesionService {
 	public SesionDTO delete(Integer id) {
 		Sesion sesion = sesionDao.findById(id);
 		sesionDao.delete(sesion);
+		return sesion.toDTO();
+	}
+
+	public SesionDTO compartir(Integer sesionId, Integer profesionalId, String comentario) {
+		Sesion sesion = sesionDao.findById(sesionId);
+		Profesional profesional = profesionalDao.findById(profesionalId);
+		
+		if(!Objects.isNull(profesional.getEmail())) {
+			mailer.sendMail(profesional.getEmail(), "Se le ha compartido una sesión", mailer.getSesionMessageBody(sesion, true, comentario));
+		}
+		
+		
+		
 		return sesion.toDTO();
 	}
 }

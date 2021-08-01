@@ -1,8 +1,8 @@
 package sipe.util;
 
 import java.security.Security;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.stereotype.Component;
 
+import sipe.model.Sesion;
 import sipe.model.Turno;
 
 @Component
@@ -68,11 +69,28 @@ public class Mailer {
 	public String getTurnoMessageBody(Turno turno, Boolean status) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("<h1>Su turno ha sido" + (status ? "confirmado" : "Cancelado") + "</h1><br>");
-		buffer.append("Práctica: " + turno.getPracticaProfesional().getProfesional().getAreaDesarrollo() + "<br>");
+		buffer.append("Pr&aacute;ctica: " + turno.getPracticaProfesional().getProfesional().getAreaDesarrollo() + "<br>");
 		buffer.append("Fecha: " + turno.getInicio().format(DateTimeFormatter.ISO_LOCAL_DATE));
 		buffer.append(" a las " + turno.getInicio().format(DateTimeFormatter.ISO_LOCAL_TIME) + "<br>");
 		buffer.append("Profesional: " + turno.getPracticaProfesional().getProfesional().getNombreCompleto() + "<br>");
 		buffer.append("Padre/Tutor: " + turno.getPracticaProfesional().getTutor().getNombreCompleto()+ "<br>");
+		return buffer.toString();
+	}
+	
+	public String getSesionMessageBody(Sesion sesion, Boolean status, String comentario) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("<h1>Se le ha compartido la siguiente sesi&oacute;n</h1><br>");
+		buffer.append("Pr&aacute;ctica: " + sesion.getPracticaProfesional().getProfesional().getAreaDesarrollo() + "<br>");
+		buffer.append("Fecha: " + sesion.getInicio().format(DateTimeFormatter.ISO_LOCAL_DATE));
+		buffer.append(" a las " + sesion.getInicio().format(DateTimeFormatter.ISO_LOCAL_TIME) + "<br>");
+		buffer.append("Profesional: " + sesion.getPracticaProfesional().getProfesional().getNombreCompleto() + "<br>");
+		buffer.append("Padre/Tutor: " + sesion.getPracticaProfesional().getTutor().getNombreCompleto()+ "<br>");
+		if (!Objects.isNull(sesion.getNotas())) {
+			buffer.append("Notas: " + sesion.getNotas()+ "<br>");
+		}
+		if (!Objects.isNull(comentario)) {
+			buffer.append("Mensaje: " + comentario + "<br>");
+		}
 		return buffer.toString();
 	}
 }
