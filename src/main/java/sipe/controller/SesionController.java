@@ -1,16 +1,20 @@
 package sipe.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import sipe.controller.dto.SesionDTO;
 import sipe.model.Sesion;
@@ -28,15 +32,22 @@ public class SesionController {
 	@RequestMapping("/sesiones/nuevo")
 	@ResponseBody
 	public SesionDTO saveSesion(@RequestParam(name = "fin", required = true) String fin,
-			@RequestParam(name = "notas", required = true) String notas,
+			@RequestParam(name = "notas", required = false) String notas,
+			@RequestParam(name = "fileName", required = false) String fileName,
+			@RequestBody JsonNode fileData,
 			@RequestParam(name = "id", required = false) Integer id,
 			@RequestParam(name = "practicaProfesionalId", required = true) Integer practicaProfesionalId,
 			@RequestParam(name = "inicio", required = true) String inicio) {
-
 		SesionDTO sesion = new SesionDTO();
+		if (Objects.isNull(fileName) && Objects.isNull(notas)) {
+			sesion.setErrorMessage("Debe cargar un archivo o notas");
+			return sesion;
+		}
 		sesion.setFin(fin);
 		sesion.setId(id);
 		sesion.setNotas(notas);
+		sesion.setContenido(fileData.get("fileData").asText());
+		sesion.setNombreArchivo(fileName);
 		sesion.setPracticaProfesionalId(practicaProfesionalId);
 		sesion.setInicio(inicio);
 		Sesion result = sesionService.save(sesion);

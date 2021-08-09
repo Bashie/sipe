@@ -62,10 +62,10 @@ public class TurnoService {
 		Turno turno = turnoDAO.findById(id);
 		turno.setConfirmado(true);
 		if(!Objects.isNull(turno.getPracticaProfesional().getProfesional().getEmail())) {
-			mailer.sendMail(turno.getPracticaProfesional().getProfesional().getEmail(), "Su turno ha sido confirmado", mailer.getTurnoMessageBody(turno, true));
+			mailer.sendMail(turno.getPracticaProfesional().getProfesional().getEmail(), "Su turno ha sido confirmado", mailer.getTurnoMessageBody(turno, true), null);
 		}
 		if(!Objects.isNull(turno.getPracticaProfesional().getTutor().getEmail())) {
-			mailer.sendMail(turno.getPracticaProfesional().getTutor().getEmail(), "Su turno ha sido confirmado", mailer.getTurnoMessageBody(turno, true));
+			mailer.sendMail(turno.getPracticaProfesional().getTutor().getEmail(), "Su turno ha sido confirmado", mailer.getTurnoMessageBody(turno, true), null);
 		}
 		return turnoDAO.save(turno).toDTO();
 	}
@@ -80,10 +80,10 @@ public class TurnoService {
 		Turno turno = turnoDAO.findById(id);
 		turno.setConfirmado(false);
 		if(!Objects.isNull(turno.getPracticaProfesional().getProfesional().getEmail())) {
-			mailer.sendMail(turno.getPracticaProfesional().getProfesional().getEmail(), "Su turno ha sido cancelado", mailer.getTurnoMessageBody(turno, false));
+			mailer.sendMail(turno.getPracticaProfesional().getProfesional().getEmail(), "Su turno ha sido cancelado", mailer.getTurnoMessageBody(turno, false), null);
 		}
 		if(!Objects.isNull(turno.getPracticaProfesional().getTutor().getEmail())) {
-			mailer.sendMail(turno.getPracticaProfesional().getTutor().getEmail(), "Su turno ha sido cancelado", mailer.getTurnoMessageBody(turno, false));
+			mailer.sendMail(turno.getPracticaProfesional().getTutor().getEmail(), "Su turno ha sido cancelado", mailer.getTurnoMessageBody(turno, false), null);
 		}
 		return turnoDAO.save(turno).toDTO();
 	}

@@ -93,11 +93,11 @@ public class TurnoServiceTest {
 		turno.setConfirmado(true);
 		doReturn(turno).when(turnoDAO).findById(UnitTestHelper.TURNO_ID);
 		doReturn(turno).when(turnoDAO).save(any());
-		doNothing().when(mailer).sendMail(any(), any(), any());
+		doNothing().when(mailer).sendMail(any(), any(), any(), any());
 		doCallRealMethod().when(mailer).getTurnoMessageBody(turno, true);
 		
 		TurnoDTO result = turnoService.confirmar(UnitTestHelper.TURNO_ID);
-		verify(mailer).sendMail(any(), any(), any());
+		verify(mailer).sendMail(any(), any(), any(), any());
 		Assertions.assertEquals(Boolean.TRUE, result.getConfirmado());
 	}
 	
@@ -109,11 +109,11 @@ public class TurnoServiceTest {
 		turno.setConfirmado(false);
 		doReturn(turno).when(turnoDAO).findById(UnitTestHelper.TURNO_ID);
 		doReturn(turno).when(turnoDAO).save(any());
-		doNothing().when(mailer).sendMail(any(), any(), any());
+		doNothing().when(mailer).sendMail(any(), any(), any(), any());
 		doCallRealMethod().when(mailer).getTurnoMessageBody(turno, false);
 		
 		TurnoDTO result = turnoService.cancelar(UnitTestHelper.TURNO_ID);
-		verify(mailer).sendMail(any(), any(), any());
+		verify(mailer).sendMail(any(), any(), any(), any());
 		Assertions.assertEquals(Boolean.FALSE, result.getConfirmado());
 	}
 	

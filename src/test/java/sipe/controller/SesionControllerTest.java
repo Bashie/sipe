@@ -37,9 +37,9 @@ public class SesionControllerTest {
 	
 	@Test
 	public void saveSesionTest() {
-		doReturn(Sesion.fromDTO(UnitTestHelper.getSesionDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor()))).when(sesionService).save(any());
+		doReturn(Sesion.fromDTO(UnitTestHelper.getSesionDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor()), null)).when(sesionService).save(any());
 		
-		SesionDTO resultado = sesionController.saveSesion(UnitTestHelper.FIN, UnitTestHelper.NOTAS, UnitTestHelper.SESION_ID, UnitTestHelper.PRACTICA_ID, UnitTestHelper.INICIO);
+		SesionDTO resultado = sesionController.saveSesion(UnitTestHelper.FIN, UnitTestHelper.NOTAS, null, null, UnitTestHelper.SESION_ID, UnitTestHelper.PRACTICA_ID, UnitTestHelper.INICIO);
 		Assertions.assertEquals(resultado.getNotas(), UnitTestHelper.NOTAS);
 	}
 	

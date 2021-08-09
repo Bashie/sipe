@@ -41,7 +41,7 @@ public class SesionServiceTest {
 	
 	@Test
 	public void saveTest() {
-		Sesion sesion = Sesion.fromDTO(UnitTestHelper.getSesionDto(), null);
+		Sesion sesion = Sesion.fromDTO(UnitTestHelper.getSesionDto(), null, null);
 		sesion.setId(UnitTestHelper.SESION_ID);
 		SesionDTO dto = UnitTestHelper.getSesionDto();
 		doReturn(sesion).when(sesionDao).save(any());
@@ -53,7 +53,7 @@ public class SesionServiceTest {
 	
 	@Test
 	public void getAllSesionesByPracticaTest() {
-		Sesion sesion = Sesion.fromDTO(UnitTestHelper.getSesionDto(), null);
+		Sesion sesion = Sesion.fromDTO(UnitTestHelper.getSesionDto(), null, null);
 		sesion.setId(UnitTestHelper.SESION_ID);
 		sesion.setPracticaProfesional(PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor()));
 		List<Sesion> listaSesiones = new ArrayList<Sesion>() {{
@@ -68,7 +68,7 @@ public class SesionServiceTest {
 	
 	@Test
 	public void testDelete() {
-		Sesion sesion = Sesion.fromDTO(UnitTestHelper.getSesionDto(), null);
+		Sesion sesion = Sesion.fromDTO(UnitTestHelper.getSesionDto(), null, null);
 		sesion.setId(UnitTestHelper.SESION_ID);
 		doReturn(sesion).when(sesionDao).save(sesion);
 		doReturn(sesion).when(sesionDao).findById(UnitTestHelper.SESION_ID);

@@ -1,12 +1,27 @@
 package sipe.controller.dto;
 
-public class SesionDTO {
+public class SesionDTO extends BaseDTO {
 	private String notas;
 	private String fin;
 	private String inicio;
 	private Integer id;
 	private PracticaProfesionalDTO practicaProfesional;
 	private Integer practicaProfesionalId;
+	private String nombreArchivo;
+	private String contenido;
+	
+	public String getNombreArchivo() {
+		return nombreArchivo;
+	}
+	public void setNombreArchivo(String nombreArchivo) {
+		this.nombreArchivo = nombreArchivo;
+	}
+	public String getContenido() {
+		return contenido;
+	}
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
 	public String getNotas() {
 		return notas;
 	}

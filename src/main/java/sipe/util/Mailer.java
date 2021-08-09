@@ -1,5 +1,7 @@
 package sipe.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Security;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -20,6 +22,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.stereotype.Component;
 
+import sipe.model.Archivo;
 import sipe.model.Sesion;
 import sipe.model.Turno;
 
@@ -38,7 +41,7 @@ public class Mailer {
 		 props.put("mail.smtp.port", "587");
 	}
 	
-	public void sendMail(String para, String Subject, String cuerpo) {
+	public void sendMail(String para, String Subject, String cuerpo, Archivo archivo) {
 		Session session = Session.getInstance(props, new Authenticator() {
 		    @Override
 		    protected PasswordAuthentication getPasswordAuthentication() {
@@ -57,11 +60,14 @@ public class Mailer {
 
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(mimeBodyPart);
-
+			if(!Objects.isNull(archivo)) {
+				MimeBodyPart attachmentPart = new MimeBodyPart();
+				attachmentPart.attachFile(new File(archivo.getPath() + archivo.getNombre()));
+				multipart.addBodyPart(attachmentPart);
+			}
 			message.setContent(multipart);
-
 			Transport.send(message);
-		} catch (MessagingException e) {
+		} catch (MessagingException|IOException e) {
 			e.printStackTrace();
 		}		
 	}

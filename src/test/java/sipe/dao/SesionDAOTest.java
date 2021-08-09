@@ -42,7 +42,7 @@ public class SesionDAOTest {
 	public void findAllTest() {
 		doReturn(query).when(entityManager).createQuery(any(), any());
 		List<Sesion> listaTurnos = new ArrayList<Sesion>() {{
-			add(Sesion.fromDTO(UnitTestHelper.getSesionDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor())));
+			add(Sesion.fromDTO(UnitTestHelper.getSesionDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor()), null));
 		}};
 		doReturn(listaTurnos).when(query).getResultList();
 		List<Sesion> resultado = sesionDAO.findAll();
@@ -54,7 +54,7 @@ public class SesionDAOTest {
 	public void findAllByPracticaTest() {
 		doReturn(query).when(entityManager).createQuery(any(), any());
 		List<Sesion> listaTurnos = new ArrayList<Sesion>() {{
-			add(Sesion.fromDTO(UnitTestHelper.getSesionDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor())));
+			add(Sesion.fromDTO(UnitTestHelper.getSesionDto(), PracticaProfesional.fromDTO(UnitTestHelper.getPracticaProfesionalDto(), Profesional.fromDTO(UnitTestHelper.getProfesionalDto()), new Tutor()), null));
 		}};
 		doReturn(listaTurnos).when(query).getResultList();
 		List<Sesion> resultado = sesionDAO.findAllByPractica(UnitTestHelper.PRACTICA_ID);
